@@ -32,7 +32,7 @@ class Table extends React.Component {
 	}
 
 	render() {
-
+ 
 		return(
 			<table>
 			{this.renderTitel()}
