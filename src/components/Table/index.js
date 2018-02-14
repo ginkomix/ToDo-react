@@ -15,13 +15,19 @@ class Table extends React.Component {
 
 		)
 	}
+	
+	changeDone =(ev)=> {
+		let target =ev.target.className;
+		this.props.change(target);
+	}
 
 	renderTable() {
 		return(
 			<tbody>
 				{ this.props.items.map((item)=> {
 					return (<tr key = {item.id}>
-						<td>{item.done}</td>
+					
+						<td><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
 						<td>{item.title}</td>
 						<td>{item.priority}</td>
 						<td>{`${item.date}`}</td>

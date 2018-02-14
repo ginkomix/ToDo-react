@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "./components/Table";
 import ToDoForm from "./components/ToDoForm";
-import {getItems,addItem} from "./utils/api"
+import {api} from "./utils/api"
 import "./App.css";
 class App extends React.Component {
 	constructor() {
@@ -10,6 +10,7 @@ class App extends React.Component {
 			item: null
 		}
 	}
+
 	renderLoad() {
 		return (
 			<p>Load</p>	
@@ -17,7 +18,7 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
-		getItems()
+		api.getItems()
 			.then((items)=>{
 			this.setState({
 				item: items
@@ -26,30 +27,40 @@ class App extends React.Component {
 
 	}
 
-	setItem =(infAdd)=> {
-		addItem(infAdd)
+	setItem =(title,priorety,data,description)=> {
+		api.addItem(title,priorety,data,description)
 			.then((newInf)=>{
+			
 			this.setState({
 				item:newInf
 			});
 
 		});
 	}
-
-	renderTable() {
+	
+	changeDone = (id)=> {
+		api.changeItems(id).then((inf)=>{
 			
+			this.setState({
+				item: inf
+			})
+		});
+	}
+
+	renderTable() {		
 		return (
-			<Table items = {this.state.item}/>
+			<Table change={this.changeDone} items = {this.state.item}/>
 		)
 	}
-render() {
-	return (
-		<div>
-			<ToDoForm clickFunction={this.setItem}/>
-			{this.state.item ? this.renderTable() : this.renderLoad()}
-		</div>
-	);
-}
+
+	render() {
+		return (
+			<div>
+				<ToDoForm  clickFunction={this.setItem}/>
+				{this.state.item ? this.renderTable() : this.renderLoad()}
+			</div>
+		);
+	}
 }
 
 export default App;
