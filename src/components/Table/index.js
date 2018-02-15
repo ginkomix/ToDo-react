@@ -1,15 +1,24 @@
 import React from 'react';
-import Filter from '../Filter'
+import {sort} from '../../utils/sort.js'
 class Table extends React.Component {
-
+	constructor() {
+		super();
+		this.title = ["done", "title", "priority", "date"];
+		this.state = {
+			sort:null
+		}
+		
+	}
 	renderTitel() {
 		return(
 			<tbody>
 				<tr>
-					<td>Done <div><button className="done 0">^</button><button className="done 1">v</button></div></td>
-					<td>Title <div><button>^</button><button>v</button></div></td>
-					<td>Priority <div><button>^</button><button>v</button></div></td>
-					<td>Date <div></div><button>^</button><button>v</button></td>
+					{this.title.map((name)=>{
+						return (<td>{name} <button onClick={()=>this.sortBy(name)}>^</button>
+						<button onClick={()=>this.sortBy('-'+name)}>v</button>
+						</td>
+						
+					)})}
 				</tr>		
 			</tbody>
 
@@ -20,7 +29,12 @@ class Table extends React.Component {
 		let target =ev.target.className;
 		this.props.change(target);
 	}
-
+	
+	sortBy(name) {
+		this.setState({
+			sort: name
+		})
+	}
 	renderPriority(priority) {
 		let string ="";
 		switch(priority) {
@@ -41,7 +55,7 @@ class Table extends React.Component {
 renderTable() {
 	return(
 		<tbody>
-			{ this.props.items.map((item)=> {
+			{ sort.sortBy(this.props.items,this.state.sort).map((item)=> {
 				return (<tr key = {item.id}>
 
 						<td><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
