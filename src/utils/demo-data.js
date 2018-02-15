@@ -19,7 +19,7 @@ export default [
     id: 3,
     title: "Третья задача",
     description: "Some text",
-    priority: 3,
+    priority: 2,
     date: new Date(2018, 2, 10),
     done: false
   }
