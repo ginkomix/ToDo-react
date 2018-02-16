@@ -22,11 +22,12 @@ class Api {
 
 	addItem(title,priorety,data,description){
 		return new Promise(resolve=>{
+			let prioretys = Number(priorety);
 			let itemNew = {
 				id: Date.now(),
 				title: title,
 				description: description,
-				priority: parseInt(priorety),
+				priority: prioretys,
 				date: `${data}`,
 				done: false
 			}
@@ -40,13 +41,14 @@ class Api {
 	changeItems(id) {
 		
 		return new Promise(resolve=>{
+			let idItem = Number(id);
 			this.inf.map((item)=>{
-				if( item.id==id) {
+				if( item.id===idItem) {
 					
 					item.done = !item.done;
-					return
+					return 0;
 				}
-
+				return item;
 			});	
 			this.setItems().then(()=>{
 				resolve(this.inf);

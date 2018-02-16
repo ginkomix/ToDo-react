@@ -8,10 +8,21 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			item: null
+			item: null,
+			filter: {}
 		}
 	}
 
+	changeFilter = (filt)=> {
+		this.setState({
+		filter: filt	
+		});
+	}
+	
+	getFilterItems() {
+		return this.state.completed ? this.state.item.filter((item)=>!item) : this.state.item  ;
+	}
+	
 	renderLoad() {
 		return (
 			<p>Load</p>	
@@ -50,7 +61,7 @@ class App extends React.Component {
 
 	renderTable() {		
 		return (
-			<Table change={this.changeDone} items = {this.state.item}/>
+			<Table change={this.changeDone} items = {this.getFilterItems() }/>
 		)
 	}
 
@@ -60,7 +71,7 @@ class App extends React.Component {
 			<h2>Add task</h2>
 				<ToDoForm  clickFunction={this.setItem}/>
 				<h2>Filter</h2>
-				<Filter/>
+				<Filter change={this.changeFilter}/>
 				<h2>ToDo</h2>
 				{this.state.item ? this.renderTable() : this.renderLoad()}
 			</div>

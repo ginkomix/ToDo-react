@@ -7,18 +7,22 @@ class Table extends React.Component {
 		this.state = {
 			sort:null
 		}
-		
+
 	}
 	renderTitel() {
 		return(
 			<tbody>
 				<tr>
-					{this.title.map((name)=>{
-						return (<td>{name} <button onClick={()=>this.sortBy(name)}>^</button>
-						<button onClick={()=>this.sortBy('-'+name)}>v</button>
-						</td>
+					{this.title.map((name,index)=>{
 						
-					)})}
+						return (
+							<td key={index}>
+								{name} 
+								<button onClick={()=>this.sortBy(name)}>^</button>
+								<button onClick={()=>this.sortBy('-'+name)}>v</button>
+							</td>
+ 
+						)})}
 				</tr>		
 			</tbody>
 
@@ -29,28 +33,29 @@ class Table extends React.Component {
 		let target =ev.target.className;
 		this.props.change(target);
 	}
-	
+
 	sortBy(name) {
 		this.setState({
 			sort: name
 		})
 	}
 	renderPriority(priority) {
-		let string ="";
-		switch(priority) {
-			case 0:
-				string ="Lov";
-				break;
-			case 1:
-				string ="Mid";
-				break;
-			case 2:
-				string ="Max";
-				break;
-
-		}
-		return string;
+	let string ="";
+	switch(priority) {
+		case 0:
+			string ="Lov";
+			break;
+		case 1:
+			string ="Mid";
+			break;
+		case 2:
+			string ="Max";
+			break;
+		default:
+			string ="Lov";
 	}
+	return string;
+}
 
 renderTable() {
 	return(
