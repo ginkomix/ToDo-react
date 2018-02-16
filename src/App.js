@@ -9,74 +9,79 @@ class App extends React.Component {
 		super();
 		this.state = {
 			item: null,
-			filter: {}
+			filter: {
+				completed:false
+			}
 		}
 	}
 
 	changeFilter = (filt)=> {
-		this.setState({
-		filter: filt	
-		});
-	}
+		
+			this.setState({
+				completed: filt	
+			});
 	
+
+	}
+
 	getFilterItems() {
-		return this.state.completed ? this.state.item.filter((item)=>!item) : this.state.item  ;
-	}
-	
-	renderLoad() {
-		return (
-			<p>Load</p>	
-		)
+		return this.state.completed ? this.state.item  :this.state.item.filter((item)=>!item.done)  ;
 	}
 
-	componentWillMount() {
-		api.getItems()
-			.then((items)=>{
-			this.setState({
-				item: items
-			});
+renderLoad() {
+	return (
+		<p>Load</p>	
+	)
+}
+
+componentWillMount() {
+	api.getItems()
+		.then((items)=>{
+		this.setState({
+			item: items
+		});
+	});
+
+}
+
+setItem =(title,priorety,data,description)=> {
+	api.addItem(title,priorety,data,description)
+		.then((newInf)=>{
+
+		this.setState({
+			item:newInf
 		});
 
-	}
+	});
+}
 
-	setItem =(title,priorety,data,description)=> {
-		api.addItem(title,priorety,data,description)
-			.then((newInf)=>{
-			
-			this.setState({
-				item:newInf
-			});
+changeDone = (id)=> {
+	api.changeItems(id).then((inf)=>{
 
-		});
-	}
-	
-	changeDone = (id)=> {
-		api.changeItems(id).then((inf)=>{
-			
-			this.setState({
-				item: inf
-			})
-		});
-	}
+		this.setState({
+			item: inf
+		})
+	});
+}
 
-	renderTable() {		
-		return (
-			<Table change={this.changeDone} items = {this.getFilterItems() }/>
-		)
-	}
+renderTable() {		
+	return (
+		<Table change={this.changeDone} items = {this.getFilterItems() }/>
+	)
+}
 
-	render() {
-		return (
-			<div>
+render() {
+	return (
+		<div>
 			<h2>Add task</h2>
-				<ToDoForm  clickFunction={this.setItem}/>
-				<h2>Filter</h2>
-				<Filter change={this.changeFilter}/>
-				<h2>ToDo</h2>
-				{this.state.item ? this.renderTable() : this.renderLoad()}
-			</div>
-		);
-	}
+			<ToDoForm  clickFunction={this.setItem}/>
+			<h2>Filter</h2>
+			<Filter change={this.changeFilter}/>
+			<h2>ToDo</h2>
+			{this.state.item ? this.renderTable() : this.renderLoad()}
+		</div>
+	);
+}
 }
 
 export default App;
