@@ -66,7 +66,7 @@ renderTable() {
 						<td><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
 						<td>{item.title}</td>
 						<td>{this.renderPriority(item.priority)}</td>
-						<td>{`${item.date}`}</td>
+						<td>{item.date.toString()}</td>
 					</tr>
 				)})}
 		</tbody>

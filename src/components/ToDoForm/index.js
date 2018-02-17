@@ -25,7 +25,7 @@ export default class ToDoForm extends React.Component {
 						<option value="1">Mid</option>
 						<option value="2">Max</option>
 					</select>
-					<input id="data" type="datetime-local" />
+					<input id="data" type="date" />
 				</div>
 				<div>
 					<textarea id="description">

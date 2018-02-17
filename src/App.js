@@ -9,23 +9,72 @@ class App extends React.Component {
 		super();
 		this.state = {
 			item: null,
-			filter: {
-				completed:false
-			}
+			completed:false,
+			text: '',
+			dataMax: 0,
+			dataMin: 0
+
 		}
 	}
 
-	changeFilter = (filt)=> {
-		
-			this.setState({
-				completed: filt	
-			});
-	
+	changeFilter = (filt,text)=> {
+		switch(text) {
+			case 'done':
+				this.setState({
+					completed: filt	
+				});
+				break;
+			case 'text': 
+				this.setState({
+					text: filt	
+				});
+				break;
+			case 'data': 
+				this.setState({
+					dataMax: filt[1],
+					dataMin: filt[0]
+				});
+				break;
+			default:
+				return;
+		}
+
+
 
 	}
 
 	getFilterItems() {
-		return this.state.completed ? this.state.item  :this.state.item.filter((item)=>!item.done)  ;
+		let arr = [...this.state.item];
+		if(!this.state.completed) {
+			arr = arr.filter((item)=>!item.done);
+		}
+		if(this.state.text!=='') {
+
+			arr = arr.filter((item)=>{
+
+				if(item.title.includes(this.state.text) || item.description.includes(this.state.text)) {
+					return true;
+				} 
+			});
+		}
+		
+		if(this.state.dataMax) {
+			
+			arr = arr.filter((item)=>{
+				
+				if(Date.parse(this.state.dataMax)>Date.parse(item.date)) {
+					return true;
+				}
+			})
+		}
+		if(this.state.dataMin) {
+			arr = arr.filter((item)=>{
+				if(Date.parse(this.state.dataMin)<Date.parse(item.date)) {
+					return true;
+				}
+			})
+		}
+		return arr ;
 	}
 
 renderLoad() {
