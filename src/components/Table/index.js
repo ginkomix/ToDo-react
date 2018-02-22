@@ -1,5 +1,6 @@
 import React from 'react';
 import {sort} from '../../utils/sort.js'
+import { Button,Icon } from 'semantic-ui-react';
 class Table extends React.Component {
 	constructor() {
 		super();
@@ -19,8 +20,10 @@ class Table extends React.Component {
 						return (
 							<td key={index}>
 								{name} 
-								<button onClick={()=>this.sortBy(name)}>^</button>
-								<button onClick={()=>this.sortBy('-'+name)}>v</button>
+								 
+								<Icon onClick={()=>this.sortBy(name)} name='caret up'/>
+								<Icon  onClick={()=>this.sortBy('-'+name)} name='caret down'/>
+							
 							</td>
  
 						)})}
@@ -42,6 +45,9 @@ class Table extends React.Component {
 	}
 
 	returnIdItem = (ev) => {
+		if(ev.target.tagName==='INPUT') {
+			return;
+		}
 		let id = ev.target.getAttribute('class');
 		this.props.click(id);
 	}

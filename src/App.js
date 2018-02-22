@@ -6,6 +6,7 @@ import {api} from "./utils/api";
 import ContextMenu from "./components/ContextMenu";
 import Blockout from "./components/Blockout";
 import "./App.css";
+import 'semantic-ui-css/semantic.min.css';
 class App extends React.Component {
 
 	state = {
@@ -122,7 +123,7 @@ class App extends React.Component {
 
 	renderTable() {		
 		return (
-			<Table click ={this.idChangeMenu} change={this.changeDone} items = {this.getFilterItems() }/>
+			<Table click ={this.idChangeMenu}  change={this.changeDone} items = {this.getFilterItems() }/>
 		)
 	}
 

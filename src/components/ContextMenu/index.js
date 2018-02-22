@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import {api} from "../../utils/api";
-
+import { Button,Icon } from 'semantic-ui-react';
 export default class ContextMenu extends React.Component {
 	
 	change = ()=> {
@@ -29,7 +29,7 @@ export default class ContextMenu extends React.Component {
 				break;
 			}
 		}
-	console.log(api.inf[key].date);
+	
 		return( 
 			
 			<div className="changeTask">
@@ -49,9 +49,13 @@ export default class ContextMenu extends React.Component {
 					</textarea>
 				</div>
 				<div>
-					<button onClick ={this.change}>Change</button>
-					<button onClick = {this.del}>Delete</button>
-					<button onClick = {this.cancel}>Cancel</button>
+				<Button.Group size='tiny'>
+					<Button color='green' onClick ={this.change}>Change</Button>
+					 <Button.Or />
+					<Button color='red' onClick = {this.del}>Delete</Button>
+					 <Button.Or />
+					<Button  color='green' onClick = {this.cancel}>Cancel</Button>
+					</Button.Group>
 				</div>
 				</div>
 		

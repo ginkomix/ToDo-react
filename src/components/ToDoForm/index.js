@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Button,Icon ,Input } from 'semantic-ui-react';
 export default class ToDoForm extends React.Component {
 
 	addItem = ()=>{
@@ -18,22 +18,26 @@ export default class ToDoForm extends React.Component {
 		return(
 			<div className="addTask">
 				<div>
-					<input id="title"  type="text"/>
+					<Input size='mini' placeholder='Title' id="title"  type="text"/>
 					<select id="priorety" defaultValue="-1">
 						<option value ="-1" disabled>Priority</option>
 						<option  value="0">Low</option>
 						<option value="1">Mid</option>
 						<option value="2">Max</option>
 					</select>
-					<input id="data" type="date" />
+					<Input size='mini' id="data" type="date" />
 				</div>
 				<div>
-					<textarea id="description">
+					<textarea placeholder='Description' id="description">
 
 					</textarea>
 				</div>
 				<div>
-					<button onClick={this.addItem} id="add">Add</button>
+					<Button  size='tiny' color='green' onClick={this.addItem} id="add" animated>
+						<Button.Content  visible>Add</Button.Content>
+						<Button.Content hidden> <Icon name='pencil'/></Button.Content>
+					</Button>
+					
 				</div>
 			</div>
 
