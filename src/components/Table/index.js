@@ -9,6 +9,7 @@ class Table extends React.Component {
 		}
 
 	}
+	
 	renderTitel() {
 		return(
 			<tbody>
@@ -34,11 +35,17 @@ class Table extends React.Component {
 		this.props.change(target);
 	}
 
-	sortBy(name) {
+	sortBy(sort) {
 		this.setState({
-			sort: name
+			sort
 		})
 	}
+
+	returnIdItem = (ev) => {
+		let id = ev.target.getAttribute('class');
+		this.props.click(id);
+	}
+
 	renderPriority(priority) {
 	let string ="";
 	switch(priority) {
@@ -57,32 +64,32 @@ class Table extends React.Component {
 	return string;
 }
 
-renderTable() {
-	return(
-		<tbody>
-			{ sort.sortBy(this.props.items,this.state.sort).map((item)=> {
-				return (<tr key = {item.id}>
+	renderTable() {
+		return(
+			<tbody>
+				{ sort.sortBy(this.props.items,this.state.sort).map((item)=> {
+					return (<tr onClick={this.returnIdItem} className={item.id} key = {item.id}>
 
-						<td><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
-						<td>{item.title}</td>
-						<td>{this.renderPriority(item.priority)}</td>
-						<td>{item.date.toString()}</td>
-					</tr>
-				)})}
-		</tbody>
-	)
-}
+							<td className={item.id}><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
+							<td className={item.id}>{item.title}</td>
+							<td className={item.id}>{this.renderPriority(item.priority)}</td>
+							<td className={item.id}>{item.date.toString()}</td>
+						</tr>
+					)})}
+			</tbody>
+		)
+	}
 
-render() {
+	render() {
 
-	return(
-		<table>
-			{this.renderTitel()}
-			{this.renderTable()}
+		return(
+			<table>
+				{this.renderTitel()}
+				{this.renderTable()}
 
-		</table>
-	);
-}
+			</table>
+		);
+	}
 }
 
 export default Table;

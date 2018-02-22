@@ -1,26 +1,26 @@
 export default [
   {
-    id: 1,
+    id: 0,
     title: "Первая задача",
     description: "Some text",
     priority: 0,
-    date: new Date(2018, 2, 11),
+    date:  "2018-02-09",
     done: false
   },
   {
-    id: 2,
+    id: 1,
     title: "Вторая задача",
     description: "Some text",
     priority: 1,
-    date: new Date(2018, 1, 11),
+    date: "2017-02-09",
     done: true
   },
   {
-    id: 3,
+    id: 2,
     title: "Третья задача",
     description: "Some text",
     priority: 2,
-    date: new Date(2018, 2, 10),
+    date: "2012-02-09",
     done: false
   }
 ];

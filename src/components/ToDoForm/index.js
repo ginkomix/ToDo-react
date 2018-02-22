@@ -19,7 +19,7 @@ export default class ToDoForm extends React.Component {
 			<div className="addTask">
 				<div>
 					<input id="title"  type="text"/>
-					<select id="priorety" >
+					<select id="priorety" defaultValue="-1">
 						<option value ="-1" disabled>Priority</option>
 						<option  value="0">Low</option>
 						<option value="1">Mid</option>

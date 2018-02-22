@@ -20,6 +20,38 @@ class Api {
 		}) ;
 	}
 
+	changeItem = (id,title,priorety,data,description) => {		
+		return new Promise(resolve=>{
+			let prioretys = Number(priorety);
+			let itemNew = {
+				id: id,
+				title: title,
+				description: description,
+				priority: prioretys,
+				date: `${data}`,
+				done: false
+			}
+			for(let key in this.inf) {
+				if(Number(this.inf[key].id) ===Number(id)) {
+					this.inf[key] = itemNew;
+				}
+			}
+			
+			this.setItems().then(()=>{
+				resolve(this.inf);
+			})
+		});
+	}
+	
+	delItem = (id)=> {
+		for(let key in this.inf) {
+				if(Number(this.inf[key].id) ===Number(id)) {
+					this.inf.splice(key,1);
+				}
+			}
+		this.setItems();
+	}
+
 	addItem(title,priorety,data,description){
 		return new Promise(resolve=>{
 			let prioretys = Number(priorety);
@@ -39,12 +71,12 @@ class Api {
 	}
 
 	changeItems(id) {
-		
+
 		return new Promise(resolve=>{
 			let idItem = Number(id);
 			this.inf.map((item)=>{
 				if( item.id===idItem) {
-					
+
 					item.done = !item.done;
 					return 0;
 				}
@@ -53,7 +85,7 @@ class Api {
 			this.setItems().then(()=>{
 				resolve(this.inf);
 			})
-			
+
 		});
 	}
 
@@ -64,8 +96,8 @@ class Api {
 		});
 
 	}
-	
-	
+
+
 }
 
 export let api = new Api();
