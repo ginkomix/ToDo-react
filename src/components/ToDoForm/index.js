@@ -14,6 +14,7 @@ export default class ToDoForm extends React.Component {
 		this.props.clickFunction(title,priorety,data,description);
 	}
 
+	
 	render() {
 		return(
 			<div className="addTask">

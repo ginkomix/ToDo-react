@@ -4,6 +4,8 @@ import {api} from "../../utils/api";
 import { Button,Icon } from 'semantic-ui-react';
 export default class ContextMenu extends React.Component {
 	
+	
+	
 	change = ()=> {
 		let title = document.querySelector('#titleChange').value,
 			priorety = document.querySelector('#prioretyChange').value,
