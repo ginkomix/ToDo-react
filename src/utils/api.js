@@ -1,10 +1,7 @@
 import items from "./demo-data";
 
 class Api {
-	constructor() {
-		this.key = 'item';
-		this.inf =[];
-	}
+	key = 'item';
 
 	getItems() {
 		return new Promise(resolve=>{
@@ -20,31 +17,7 @@ class Api {
 		}) ;
 	}
 
-	changeItem = (id,title,priorety,data,description) => {		
-		return new Promise(resolve=>{
-			let prioretys = Number(priorety);
-			let itemNew = {
-				id: id,
-				title: title,
-				description: description,
-				priority: prioretys,
-				date: `${data}`,
-				done: false
-			}
-			for(let key in this.inf) {
-				if(Number(this.inf[key].id) ===Number(id)) {
-					this.inf[key] = itemNew;
-				}
-			}
-			
-			this.setItems().then(()=>{
-				resolve(this.inf);
-			})
-		});
-	}
-
 	addItem(store,item){
-	
 			let prioretys = Number(item.priorety),
 			 itemNew = {
 				id: Date.now(),
@@ -55,15 +28,9 @@ class Api {
 				done: false
 			},
 				storeOut = [...store,itemNew];
-			
 			this.setItems(storeOut);
-	
-				return itemNew;
-			
-		
-	}
-
-	
+				return itemNew;	
+	}	
 
 	setItems = (store)=> {
 		return new Promise(resolve=> {

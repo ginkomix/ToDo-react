@@ -3,24 +3,26 @@ import './index.css';
 import {api} from "../../utils/api";
 import { Button,Icon } from 'semantic-ui-react';
 import {changeItemID} from'../../actions/contextMenu';
-import {del} from '../../actions/item'
+import {del,change} from '../../actions/item'
 import {connect} from 'react-redux';
 import Blockout from "../Blockout";
 
 class ContextMenu extends React.Component {
 
 	change = ()=> {
-		let title = document.querySelector('#titleChange').value,
-			priorety = document.querySelector('#prioretyChange').value,
-			data = document.querySelector('#dataChange').value,
-			description = document.querySelector('#descriptionChange').value;
-		this.props.changeItem(this.props.itemId,title,priorety,data,description);
-		this.props.idChangeMenu(0);
+		let item = {
+			id : this.props.id,
+			title: document.querySelector('#titleChange').value,
+			priorety: document.querySelector('#prioretyChange').value,
+			data :document.querySelector('#dataChange').value,
+			description: document.querySelector('#descriptionChange').value
+		}
+		this.props.change(item);
+		this.props.changeItemID(0);
 	}
 
 	del = ()=> {
 		this.props.del(this.props.id);
-		
 		this.props.changeItemID(0);
 	}
 
@@ -73,9 +75,9 @@ class ContextMenu extends React.Component {
 
 	render() {
 		return (
-		<div>
-			{this.renderChangeMenu()}
-		</div>
+			<div>
+				{this.renderChangeMenu()}
+			</div>
 		)
 	}	
 }
@@ -85,5 +87,6 @@ export default connect(state=>({
 	item: state.item
 }),{
 	changeItemID,
-	del
+	del,
+	change
 })(ContextMenu);

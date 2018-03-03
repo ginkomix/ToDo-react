@@ -1,4 +1,4 @@
-import {ADD,DEL,ADD_DEFAULT_ITEM,CHANGE_DONE} from '../actions/item';
+import {ADD,DEL,ADD_DEFAULT_ITEM,CHANGE_DONE,CHANGE} from '../actions/item';
 import {api} from '../utils/api';
 const DEFAULT_ITEM = null;
 
@@ -19,6 +19,26 @@ export default (state = DEFAULT_ITEM,action) =>{
 					return item;
 				});	
 			api.setItems(stateNew);
+			return stateNew;
+		}
+
+		case CHANGE: { 
+			let stateNew = [...state];
+			let prioretys = Number(action.item.priorety);
+			let itemNew = {
+				id: action.item.id,
+				title: action.item.title,
+				description: action.item.description,
+				priority: prioretys,
+				date: `${action.item.data}`,
+				done: false
+			}
+			for(let key in stateNew) {
+				if(Number(stateNew[key].id) ===Number(action.item.id)) {
+					stateNew[key] = itemNew;
+				}
+			}
+			api.setItems(stateNew)
 			return stateNew;
 		}
 
