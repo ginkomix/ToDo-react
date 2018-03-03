@@ -8,15 +8,15 @@ class Api {
 
 	getItems() {
 		return new Promise(resolve=>{
-			let item = JSON.parse(localStorage.getItem(this.key));
+			let item = JSON.parse(localStorage.getItem(this.key)),
+				inf =[];
 
 			if(Array.isArray(item)) {
-				this.inf = item;
+				inf = item;
 			} else {
-				this.inf = items;
+				inf = items;
 			}
-
-			resolve(this.inf);
+			resolve(inf);
 		}) ;
 	}
 
@@ -52,46 +52,31 @@ class Api {
 		this.setItems();
 	}
 
-	addItem(title,priorety,data,description){
-		return new Promise(resolve=>{
-			let prioretys = Number(priorety);
-			let itemNew = {
+	addItem(store,item){
+	
+			let prioretys = Number(item.priorety),
+			 itemNew = {
 				id: Date.now(),
-				title: title,
-				description: description,
+				title: item.title,
+				description: item.description,
 				priority: prioretys,
-				date: `${data}`,
+				date: `${item.data}`,
 				done: false
-			}
-			this.inf.push(itemNew);
-			this.setItems().then(()=>{
-				resolve(this.inf);
-			})
-		});
+			},
+				storeOut = [...store,itemNew];
+			
+			this.setItems(storeOut);
+	
+				return itemNew;
+			
+		
 	}
 
-	changeItems(id) {
+	
 
-		return new Promise(resolve=>{
-			let idItem = Number(id);
-			this.inf.map((item)=>{
-				if( item.id===idItem) {
-
-					item.done = !item.done;
-					return 0;
-				}
-				return item;
-			});	
-			this.setItems().then(()=>{
-				resolve(this.inf);
-			})
-
-		});
-	}
-
-	setItems = ()=> {
+	setItems = (store)=> {
 		return new Promise(resolve=> {
-			localStorage.setItem(this.key,JSON.stringify(this.inf));
+			localStorage.setItem(this.key,JSON.stringify(store));
 			resolve();
 		});
 

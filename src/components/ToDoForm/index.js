@@ -1,17 +1,21 @@
 import React from 'react';
 import { Button,Icon ,Input } from 'semantic-ui-react';
-export default class ToDoForm extends React.Component {
+import {connect} from 'react-redux';
+import {add} from '../../actions/item';
+class ToDoForm extends React.Component {
 
 	addItem = ()=>{
-		let title = document.querySelector('#title').value,
-			priorety = document.querySelector('#priorety').value,
-			data = document.querySelector('#data').value,
-			description = document.querySelector('#description').value;
+		let item ={
+			title: document.querySelector('#title').value,
+			priorety: document.querySelector('#priorety').value,
+			data: document.querySelector('#data').value,
+			description: document.querySelector('#description').value	
+		}
 		document.querySelector('#title').value = '';
 		document.querySelector('#priorety').value = -1;
 		document.querySelector('#data').value = '';
 		document.querySelector('#description').value = '';
-		this.props.clickFunction(title,priorety,data,description);
+		this.props.add(item);
 	}
 
 	
@@ -45,3 +49,8 @@ export default class ToDoForm extends React.Component {
 		)
 	}
 }
+
+export default connect(
+	undefined,{
+	add
+})(ToDoForm);
