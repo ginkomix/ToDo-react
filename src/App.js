@@ -42,51 +42,8 @@ class App extends React.Component {
 		})
 	}
 
-	changeFilter = (filt,text)=> {
-		switch(text) {
-			case 'done':
-				this.setState({
-					completed: filt	
-				});
-				break;
-			case 'text': 
-				this.setState({
-					text: filt	
-				});
-				break;
-			case 'data': 
-				this.setState({
-					dataMax: filt[1],
-					dataMin: filt[0]
-				});
-				break;
-			default:
-				return;
-		}
 
 
-
-	}
-
-//	getFilterItems() {
-//		let arr = [...this.state.item];
-//		if(!this.state.completed) {
-//			arr = arr.filter((item)=>!item.done);
-//		}
-//		if(this.state.text!=='') {
-//
-//			arr = arr.filter((item)=>item.title.includes(this.state.text) || item.description.includes(this.state.text));
-//		}
-//
-//		if(this.state.dataMax) {
-//
-//			arr = arr.filter((item)=>Date.parse(this.state.dataMax)>Date.parse(item.date))
-//		}
-//		if(this.state.dataMin) {
-//			arr = arr.filter((item)=>Date.parse(this.state.dataMin)<Date.parse(item.date))
-//		}
-//		return arr ;
-//	}
 
 
 
@@ -118,7 +75,7 @@ render() {
 				<h2>Add task</h2>
 				<ToDoForm />
 				<h2>Filter</h2>
-				<Filter change={this.changeFilter}/>
+				<Filter/>
 				<h2>ToDo</h2>
 				{ this.renderTable()}
 				{this.renderChangeMenu()}

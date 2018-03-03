@@ -1,14 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {check} from '../../actions/filter';
+import {check,dataMax,dataMin,text} from '../../actions/filter';
 
 class Filter extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			check: false	
-		}
-	}
 
 	changeForm = (ev)=> {
 
@@ -27,25 +21,19 @@ class Filter extends React.Component {
 		}
 	}
 
+	dataFinde() {
+		let dataMin = document.querySelector('#dataMin').value,
+			dataMax = document.querySelector('#dataMax').value;
+		this.props.dataMax(dataMax);
+		this.props.dataMin(dataMin);
+	}
 
-
-dataFinde() {
-	let data = [];
-	data.push(document.querySelector('#dataMin').value);
-	data.push(document.querySelector('#dataMax').value);
-	this.props.change(data,'data');
-}
-
-findeText(target) {
-	this.props.change(target.value,'text');
-}
-
-
-
-
-
+	findeText(target) {
+		this.props.text(target.value);
+	}
 
 	render() {
+		
 		return(
 			<form onChange={this.changeForm}>
 				<input type="checkbox" checked={this.props.filter.check}/>
@@ -53,15 +41,14 @@ findeText(target) {
 				<input id="searchDataMin" id="dataMin" type="date" />
 				<input id="searchDataMax" id="dataMax" type="date" />
 			</form>	
-
 		)
-
-
-
 	}
 }
 export default connect(state=>({
 	filter: state.filter
 }),{
-	check
+	check,
+	dataMax,
+	dataMin,
+	text
 })(Filter);
