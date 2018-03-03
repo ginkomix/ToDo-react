@@ -11,23 +11,6 @@ import store from './config/store';
 
 class App extends React.Component {
 
-	setItem =(title,priorety,data,description)=> {
-		api.addItem(title,priorety,data,description)
-			.then((item)=>{
-
-			this.setState({
-				item
-			});
-
-		});
-	}
-
-	renderTable() {		
-		return (
-			<Table/>
-		)
-	}
-
 	render() {
 		return (
 			<Provider store={store}>
@@ -37,7 +20,7 @@ class App extends React.Component {
 					<h2>Filter</h2>
 					<Filter/>
 					<h2>ToDo</h2>
-					{ this.renderTable()}
+					<Table/>
 					<ContextMenu/>
 				</div>
 			</Provider>
