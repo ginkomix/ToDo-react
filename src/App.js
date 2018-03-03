@@ -11,50 +11,38 @@ import store from './config/store';
 
 class App extends React.Component {
 
-	state = {
-		item: null,
-		completed:false,
-		text: '',
-		dataMax: 0,
-		dataMin: 0,
-		id:0
+	setItem =(title,priorety,data,description)=> {
+		api.addItem(title,priorety,data,description)
+			.then((item)=>{
 
+			this.setState({
+				item
+			});
+
+		});
 	}
 
-setItem =(title,priorety,data,description)=> {
-	api.addItem(title,priorety,data,description)
-		.then((item)=>{
+	renderTable() {		
+		return (
+			<Table/>
+		)
+	}
 
-		this.setState({
-			item
-		});
-
-	});
-}
-
-
-
-renderTable() {		
-	return (
-		<Table/>
-	)
-}
-
-render() {
-	return (
-		<Provider store={store}>
-			<div>
-				<h2>Add task</h2>
-				<ToDoForm />
-				<h2>Filter</h2>
-				<Filter/>
-				<h2>ToDo</h2>
-				{ this.renderTable()}
-				<ContextMenu/>
-			</div>
-		</Provider>
-	);
-}
+	render() {
+		return (
+			<Provider store={store}>
+				<div>
+					<h2>Add task</h2>
+					<ToDoForm />
+					<h2>Filter</h2>
+					<Filter/>
+					<h2>ToDo</h2>
+					{ this.renderTable()}
+					<ContextMenu/>
+				</div>
+			</Provider>
+		);
+	}
 }
 
 export default App;

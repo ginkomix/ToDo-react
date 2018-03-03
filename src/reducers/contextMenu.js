@@ -7,6 +7,7 @@ export default (state = DEFAULT_ID,action) => {
 		case CHANGE_ITEM_ID:
 			state = action.id;
 			return state;	
+		default: return state;
 	}
-	return state;
+	
 }

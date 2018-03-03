@@ -30,9 +30,6 @@ export default (state = DEFAULT_STATE,action) => {
 			stateNew.dataMin = action.data;
 			return stateNew;
 		}
+		default: return state;
 	}
-
-
-
-	return state;
 }

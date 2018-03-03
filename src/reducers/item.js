@@ -52,7 +52,8 @@ export default (state = DEFAULT_ITEM,action) =>{
 			api.setItems(stateNew);
 			return stateNew;	
 		}
+		default: return state;
 	}
-	return state;
+	
 }
 

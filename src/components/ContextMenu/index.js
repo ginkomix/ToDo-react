@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.css';
-import {api} from "../../utils/api";
-import { Button,Icon } from 'semantic-ui-react';
+import { Button} from 'semantic-ui-react';
 import {changeItemID} from'../../actions/contextMenu';
 import {del,change} from '../../actions/item'
 import {connect} from 'react-redux';

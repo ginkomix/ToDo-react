@@ -1,19 +1,20 @@
 import React from 'react';
 import {sort} from '../../utils/sort.js'
-import { Button,Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import  { connect } from 'react-redux';
 import {defaultItem,changeDone} from '../../actions/item';
 import {sortBy} from '../../actions/sort';
 import {changeItemID} from'../../actions/contextMenu';
 import {api} from '../../utils/api';
+import { Loader, Image, Segment } from 'semantic-ui-react';
 class Table extends React.Component {
-	
+
 	title = ["done", "title", "priority", "date"];
-	
+
 	componentWillMount() {
 		api.getItems()
 			.then((state)=>{
-			
+
 			this.props.defaultItem(state);
 		});
 	}
@@ -23,28 +24,23 @@ class Table extends React.Component {
 			<tbody>
 				<tr>
 					{this.title.map((name,index)=>{
-
 						return (
 							<td key={index}>
 								{name} 
-
 								<Icon onClick={()=>this.props.sortBy(name)} name='caret up'/>
 								<Icon  onClick={()=>this.props.sortBy('-'+name)} name='caret down'/>
-
 							</td>
-
 						)})}
 				</tr>		
 			</tbody>
-
 		)
 	}
-	
+
 	changeDone = (ev)=> {
 		let target =ev.target.className;
 		this.props.changeDone(target);
 	}
-	
+
 	returnIdItem = (ev) => {
 		if(ev.target.tagName==='INPUT') {
 			return;
@@ -90,13 +86,12 @@ class Table extends React.Component {
 		}
 		return arr ;
 	}
-	
+
 	renderTable() {
 		return(
 			<tbody>
 				{ sort.sortBy(this.getFilterItems(),this.props.sort).map((item)=> {
 					return (<tr onClick={this.returnIdItem} className={item.id} key = {item.id}>
-
 							<td className={item.id}><input className = {item.id} type="checkbox" checked ={item.done} onChange={this.changeDone} /></td>
 							<td className={item.id}>{item.title}</td>
 							<td className={item.id}>{this.renderPriority(item.priority)}</td>
@@ -109,30 +104,37 @@ class Table extends React.Component {
 
 	renderLoad() {
 		return (
-			<p>Load</p>	
+			<tbody>
+				<tr>
+					<td>
+						<Segment>
+							<Loader active />
+							<Image src='/assets/images/wireframe/short-paragraph.png' />
+						</Segment>
+					</td>
+				</tr>	
+			</tbody>
 		)
 	}
 
 	render() {
-
 		return(
 			<table>
 				{this.renderTitel()}
 				{this.props.list?this.renderTable():this.renderLoad()}
-
 			</table>
 		);
 	}
-	}
+}
 
 
-	export default connect(state=>({
-		list: state.item,
-		sort: state.sort,
-		filter: state.filter
-	}),{
-		defaultItem,
-		sortBy,
-		changeDone,
-		changeItemID
+export default connect(state=>({
+	list: state.item,
+	sort: state.sort,
+	filter: state.filter
+}),{
+	defaultItem,
+	sortBy,
+	changeDone,
+	changeItemID
 	})(Table);
