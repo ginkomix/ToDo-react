@@ -4,6 +4,7 @@ import { Button,Icon } from 'semantic-ui-react';
 import  { connect } from 'react-redux';
 import {defaultItem,changeDone} from '../../actions/item';
 import {sortBy} from '../../actions/sort';
+import {changeItemID} from'../../actions/contextMenu';
 import {api} from '../../utils/api';
 class Table extends React.Component {
 	
@@ -48,8 +49,8 @@ class Table extends React.Component {
 		if(ev.target.tagName==='INPUT') {
 			return;
 		}
-		let id = ev.target.getAttribute('class');
-		this.props.click(id);
+		let id = Number(ev.target.getAttribute('class'));
+		this.props.changeItemID(id);
 	}
 
 	renderPriority(priority) {
@@ -89,10 +90,8 @@ class Table extends React.Component {
 		}
 		return arr ;
 	}
-
-
+	
 	renderTable() {
-			console.log(this.props.filter);
 		return(
 			<tbody>
 				{ sort.sortBy(this.getFilterItems(),this.props.sort).map((item)=> {
@@ -134,5 +133,6 @@ class Table extends React.Component {
 	}),{
 		defaultItem,
 		sortBy,
-		changeDone
+		changeDone,
+		changeItemID
 	})(Table);

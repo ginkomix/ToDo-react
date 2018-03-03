@@ -1,6 +1,6 @@
 export default [
   {
-    id: 0,
+    id: 1230,
     title: "Первая задача",
     description: "Some text",
     priority: 0,
@@ -8,7 +8,7 @@ export default [
     done: false
   },
   {
-    id: 1,
+    id: 12321,
     title: "Вторая задача",
     description: "Some text",
     priority: 1,
@@ -16,7 +16,7 @@ export default [
     done: true
   },
   {
-    id: 2,
+    id: 53452,
     title: "Третья задача",
     description: "Some text",
     priority: 2,

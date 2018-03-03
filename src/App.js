@@ -4,7 +4,6 @@ import ToDoForm from "./components/ToDoForm";
 import Filter from "./components/Filter";
 import {api} from "./utils/api";
 import ContextMenu from "./components/ContextMenu";
-import Blockout from "./components/Blockout";
 import "./App.css";
 import 'semantic-ui-css/semantic.min.css';
 import {Provider} from 'react-redux';
@@ -22,33 +21,6 @@ class App extends React.Component {
 
 	}
 
-	renderChangeMenu = () =>{
-		if(this.state.id) {
-			return(
-				<div>
-					<ContextMenu itemId={this.state.id} delItem={api.delItem} idChangeMenu={this.idChangeMenu} changeItem ={api.changeItem}/>
-					<Blockout/>
-				</div>
-
-			)
-
-		}
-
-	}
-
-	idChangeMenu = (id) => {
-		this.setState({
-			id
-		})
-	}
-
-
-
-
-
-
-
-
 setItem =(title,priorety,data,description)=> {
 	api.addItem(title,priorety,data,description)
 		.then((item)=>{
@@ -64,7 +36,7 @@ setItem =(title,priorety,data,description)=> {
 
 renderTable() {		
 	return (
-		<Table click ={this.idChangeMenu}/>
+		<Table/>
 	)
 }
 
@@ -78,8 +50,7 @@ render() {
 				<Filter/>
 				<h2>ToDo</h2>
 				{ this.renderTable()}
-				{this.renderChangeMenu()}
-
+				<ContextMenu/>
 			</div>
 		</Provider>
 	);

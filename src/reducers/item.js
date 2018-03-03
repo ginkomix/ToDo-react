@@ -10,7 +10,7 @@ export default (state = DEFAULT_ITEM,action) =>{
 		case ADD:	
 			return [...state,api.addItem(state,action.item)];
 
-		case CHANGE_DONE: 
+		case CHANGE_DONE: {
 			let idItem = Number(action.id),
 				stateNew = state.map((item)=>{
 					if( item.id===idItem) {
@@ -20,8 +20,18 @@ export default (state = DEFAULT_ITEM,action) =>{
 				});	
 			api.setItems(stateNew);
 			return stateNew;
+		}
 
-		case DEL:  return state;	
+		case DEL: {
+			let stateNew = [...state];
+			for(let key in stateNew) {
+				if(Number(stateNew[key].id) ===Number(action.id)) {
+					stateNew.splice(key,1);
+				}
+			}
+			api.setItems(stateNew);
+			return stateNew;	
+		}
 	}
 	return state;
 }

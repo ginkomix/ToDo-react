@@ -42,15 +42,6 @@ class Api {
 			})
 		});
 	}
-	
-	delItem = (id)=> {
-		for(let key in this.inf) {
-				if(Number(this.inf[key].id) ===Number(id)) {
-					this.inf.splice(key,1);
-				}
-			}
-		this.setItems();
-	}
 
 	addItem(store,item){
 	
