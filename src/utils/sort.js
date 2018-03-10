@@ -1,7 +1,4 @@
 class Sort {
-
-
-
 	sortBy(item,howSort) {
 		if(!howSort) {
 			return item;
